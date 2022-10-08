@@ -1,0 +1,75 @@
+#主配置文件
+
+spring:
+  # 激活环境配置
+  profiles:
+    active: dev
+  # 文件编码 UTF8
+  mandatory-file-encoding: UTF-8
+  mvc:
+    # 404 交给异常处理器处理
+    throw-exception-if-no-handler-found: true
+  resources:
+    # 关闭静态资源的映射
+    add-mappings: false
+
+
+mybatis-plus:
+  configuration:
+    # 开启下划线转驼峰
+    map-underscore-to-camel-case: true
+  global-config:
+    # 开启/关闭 banner 打印
+    banner: false
+    db-config:
+      # 逻辑删除（软删除）
+      logic-delete-value: NOW()
+      logic-not-delete-value: 'NULL'
+  # mapper路径位置
+  mapper-locations: classpath:mapper/*.xml
+
+
+logging:
+  # 日志配置文件（logback配置文件）
+  config: classpath:logback-spring.xml
+
+
+lin:
+  cms:
+    # 开启行为日志记录（logger）
+    logger-enabled: true
+    # access token 过期时间，3600s 一个小时
+    token-access-expire: 604800
+    # refresh token 过期时间，2592000s 一个月
+    token-refresh-expire: 2592000
+    # 令牌 secret
+    token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
+  file:
+    qiniuyun:
+      access-key: bJhzN0ysYeyB0sXAgOpsgcURjoWQ5wTKO7znrhUm
+      secret-key: VTGm6CL56gfJbn3LoLgWAas1BRZ9jvTuekr6ihcB
+      bucket: tequanking
+
+wx:
+  code2session: https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type=authorization_code
+  appid: wx95bc937c4ea911ab
+  appsecret: 34e99106405a1e512213305c7e52b8d9
+lin-cross:
+  cross-origin: true
+  allow-headers: DNT,web-token,app-token,Authorization,Accept,Origin,Keep-Alive,User-Agent,X-Mx-ReqToken,X-Data-Type,X-Auth-Token,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,sec-ch-ua,sec-ch-ua-mobile
+sms:
+  access-key-id: LTAI5t6rJcJnT8tgpip7epuv
+  access-key-secret: 3sHmqLfzwDNHZ3tCJH8hA0OMSnz5SP
+  domain: dysmsapi.aliyuncs.com
+  product: Dysmsapi
+  template-code: SMS_158445864
+  sign-name: 易点科技
+
+third-party:
+  wechat:
+    url:
+      host: http://192.168.3.196:5002/wxUser/
+      client-host: http://192.168.3.196:5002/
+    mp:
+      app-id: wx2f2b46bb055b6a50
+      app-secret: f1a92bd44e71332e9df2bb9080aaa30d
