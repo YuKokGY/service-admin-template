@@ -45,7 +45,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                 jwt.decodeAccessToken(splits[1]);
                 return true;
             } catch (Exception e) {
-                throw new ResponseException(10040);
+                throw new ResponseException(10050);
             }
         }
     }
