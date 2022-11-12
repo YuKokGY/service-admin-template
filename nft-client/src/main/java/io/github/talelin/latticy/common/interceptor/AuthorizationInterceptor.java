@@ -40,7 +40,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
             NotLogin notLogin = method.getAnnotation(NotLogin.class);
-            if (notLogin == null) {
+            if (notLogin != null) {
                 return true;
             }
             return handleLogin(request, response);
