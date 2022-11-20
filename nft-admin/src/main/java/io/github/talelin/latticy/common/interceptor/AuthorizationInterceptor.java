@@ -13,24 +13,29 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private DoubleJWT jwt;
+    private final String[] excludeMethods = new String[]{"OPTIONS"};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Token annotation;
-        if (handler instanceof HandlerMethod) {
-            annotation = ((HandlerMethod) handler).getMethodAnnotation(Token.class);
-        } else {
+        if (checkInExclude(request.getMethod())) {
+            // 有些请求方法无需检测，如OPTIONS
             return true;
         }
-        //没有声明需要权限,或者声明不验证权限
-        if (annotation == null || !annotation.validate()) {
-            return true;
+        //声明接口无需登陆即可访问
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            NotLogin notLogin = method.getAnnotation(NotLogin.class);
+            if (notLogin != null) {
+                return true;
+            }
         }
         //从header中获取token
         String bearerToken = request.getHeader("Authorization");
@@ -48,5 +53,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                 throw new ResponseException(10050);
             }
         }
+    }
+    private boolean checkInExclude(String method) {
+        for (String excludeMethod : excludeMethods) {
+            if (method.equals(excludeMethod)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
