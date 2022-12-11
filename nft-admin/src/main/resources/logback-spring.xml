@@ -3,7 +3,7 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
 
-    <property name="log.path" value="logs/"/>
+    <property name="log.path" value="nft-admin/logs/"/>
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
 
