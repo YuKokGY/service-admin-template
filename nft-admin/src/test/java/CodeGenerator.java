@@ -43,7 +43,7 @@ public class CodeGenerator {
                 .setParent("io.github.talelin.latticy")
                 .setPathInfo(getPathInfo())
                 .setEntity("model")
-                .setController("controller.v1")
+                .setController("controller.cms")
                 .setXml("xml");
         mpg.setPackageInfo(packageConfig);
 
@@ -51,8 +51,7 @@ public class CodeGenerator {
         TemplateConfig templateConfig = new TemplateConfig();
         templateConfig
                 .setEntity("/mpg/templates/entity.java")
-                .setXml("/mpg/templates/mapper.xml")
-                .setController("/mpg/templates/controller.java");
+                .setXml("/mpg/templates/mapper.xml");
         mpg.setTemplate(templateConfig);
 
         // 策略配置
