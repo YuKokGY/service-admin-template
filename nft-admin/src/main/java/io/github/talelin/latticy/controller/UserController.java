@@ -8,6 +8,7 @@ import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
 import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.common.interceptor.NotLogin;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.LoginDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -48,6 +49,7 @@ public class UserController {
      * 用户登录
      */
     @PostMapping("/login")
+    @NotLogin
     public Tokens login(@RequestBody @Validated LoginDTO validator) {
         UserDO user = userService.getUserByUsername(validator.getUsername());
         if (user == null) {
